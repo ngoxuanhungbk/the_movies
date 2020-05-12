@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="movie"
+            type="vn.hungnx.themovies.data.Movie" />
+        <variable
+            name="viewmodel"
+            type="vn.hungnx.themovies.detail.MovieDetailViewModel" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/img_cover"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="4:3"
+            app:layout_constraintTop_toTopOf="parent"
+            imageUrl="@{movie.fullPosterPath}"
+            centerCrop="@{ true }"
+            android:transitionName="@{movie.fullPosterPath}"
+            />
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/img_cover"
+            android:textSize="24dp"
+            android:textStyle="bold"
+            android:text="@{movie.title}"
+            android:transitionName="@{movie.title}"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="UNLIKE"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_margin="16dp"
+            android:visibility="@{viewmodel.isLiked()? View.VISIBLE : View.GONE}"
+            android:onClick="@{(view)->viewmodel.unlikeMovie(movie)}"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LIKE"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_margin="16dp"
+            android:visibility="@{viewmodel.isLiked()? View.GONE : View.VISIBLE}"
+            android:onClick="@{(view)-> viewmodel.likeMovie(movie)}"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
